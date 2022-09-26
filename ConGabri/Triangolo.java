@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Triangolo {
-    private int lato1, lato2, lato3;   
+    private int lato1, lato2, lato3;     
 
 
     public Triangolo(int l1, int l2, int l3){
