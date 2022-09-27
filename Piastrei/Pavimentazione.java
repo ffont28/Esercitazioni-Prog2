@@ -1,0 +1,92 @@
+package Piastrei;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Una <em>pavimentazione</em> immutabile, la cui rappresentazione è costituita da una collezione di
+ * {@link Componente} ciascuno dei quali rappresenta una certa <em>quantità</em> di un
+ * <em>rivestimento</em> (sia esso una <em>piastrella</em> o un'altra <em>pavimentazione</em>); è
+ * possibile accedere al suo contenuto tramite <em>iterazione</em>.
+ */
+public class Pavimentazione implements Rivestimento, Iterable<Pavimentazione.Componente> {
+
+  /**
+   * Un <em>componente</em> di una <em>pavimentazione</em>, ossia una certa <em>quantità</em> di un
+   * dato <em>rivestimento</em>.
+   */
+  public static class Componente implements Rivestimento {
+
+    /** Il rivestimento di cui è costituito questo componente, non è mai {@code null}. */
+    public final Rivestimento rivestimento;
+
+    /** La quantità di rivestimenti di cui è costituito il componente, è sempre positiva. */
+    public final int quantità;
+
+    /**
+     * Costruisce una pavimentazione, data una <em>quantità</em> del <em>rivestimento</em> che lo
+     * costituisce. Implementa {@link Rivestimento} nel modo ovvio: costo e superficie sono ottenuti
+     * moltiplicando quelle del rivestimento per la quantità in cui è presente.
+     *
+     * @param quantità la quantità.
+     * @param rivestimento il rivestimento.
+     * @throws IllegalArgumentException se la quantità non è positiva, o il rivestimento è {@code
+     *     null}.
+     */
+    public Componente(final int quantità, final Rivestimento rivestimento) {
+      this.rivestimento = Objects.requireNonNull(rivestimento);
+      if (quantità <= 0) throw new IllegalArgumentException("La quantità dev'essere positiva");
+      this.quantità = quantità;
+    }
+
+    @Override
+    public int costo() {
+      return quantità * rivestimento.costo();
+    }
+
+    @Override
+    public int superficie() {
+      return quantità * rivestimento.superficie();
+    }
+
+  }
+
+  /**
+   * La collezione di componenti compresi in questa pavimentazione, non è {@code nulL}, non è vuota
+   * e non contiene {@code null}.
+   */
+  private final Collection<Componente> componenti;
+
+  /**
+   * Costruisce una pavimentazione data la collezione di componenti che comprende.
+   *
+   * @param componenti una collezione di componenti.
+   * @throws NullPointerException se la collezione è o contiene {@code null}
+   * @throws IllegalArgumentException se la collezione è vuota.
+   */
+  public Pavimentazione(final Collection<Componente> componenti) {
+    this.componenti = List.copyOf(componenti);
+    if (componenti.isEmpty())
+      throw new IllegalArgumentException("Ci deve essere sempre almeno una componente.");
+  }
+
+  @Override
+  public int costo() {
+    int totale = 0;
+    for (final Rivestimento r : componenti) totale += r.costo();
+    return totale;
+  }
+
+  @Override
+  public int superficie() {
+    int totale = 0;
+    for (final Rivestimento r : componenti) totale += r.superficie();
+    return totale;
+  }
+
+  @Override
+  public Iterator<Pavimentazione.Componente> iterator() {
+    return componenti.iterator();
+  }
+}
