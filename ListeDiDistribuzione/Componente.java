@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-public class Componente {
+public class Componente implements ListeInterf{
     final Predicate<String> VALIDO;
     public final String part;
 
