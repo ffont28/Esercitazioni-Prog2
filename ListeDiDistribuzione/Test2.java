@@ -32,7 +32,14 @@ public class Test2 {
                                     listeMap.put(linea[0], new ListaDistribuzioneDifferenza(linea[0],listeMap.get(linea[2]), listeMap.get(linea[4]))); 
                                 }     
                             break;
-                        
+                        case "-=":
+                                Alias temp =  aliasMap.get(linea[0]);
+                                temp.rimuovi(new Locale(linea[2]));
+                            break;
+                        case "+=":
+                                Alias tempa =  aliasMap.get(linea[0]);
+                                tempa.aggiungi(new Locale(linea[2]));
+                        break;
                         default:
                             break;
                     }
