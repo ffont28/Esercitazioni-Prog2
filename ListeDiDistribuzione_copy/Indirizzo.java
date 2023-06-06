@@ -1,6 +1,6 @@
-package ListeDiDistribuzione;
+package ListeDiDistribuzione_copy;
 
-public class Indirizzo{
+public class Indirizzo implements ListeInterf{
     final Locale l;
     final Dominio d;
 

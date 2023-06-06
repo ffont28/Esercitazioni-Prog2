@@ -1,4 +1,4 @@
-package ListeDiDistribuzione;
+package cestin;
 
 public interface ListeInterf {
 
